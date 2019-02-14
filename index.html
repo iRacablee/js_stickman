@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="js/script.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body id="char">
+    <img style="z-index: 1;position:absolute; left: 0; top: 650px;  -webkit-filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.5));
+    filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.5));" id="image" src="anim/iskaright.png" alt="">
+    <img style="z-index: 0;position:absolute; left: 0; top: 839px;width:1920px;height: 130px;" id="background1" src="anim/bg-grass.png" alt="">
+    <script>
+        var notPressing = false;
+        var timer;
+        document.addEventListener("mouseup", function presingUp() {
+            notPressing = true;
+        });
+        document.addEventListener("touchend", function presingUp() {
+            notPressing = true;
+        });
+        document.addEventListener("mouseleave", function presingUp() {
+            notPressing = true;
+        });
+
+
+        
+
+        document.addEventListener("touchstart", function pressingDown() {
+            var x = event.touches[0].clientX;     // Get the horizontal coordinate
+            var y = event.touches[0].clientY;    // Get the vertical coordinate
+            var coor = "X coords: " + x + ", Y coords: " + y;
+            console.log(coor + '    ' + document.scrollingElement.clientHeight + '  ' + document.scrollingElement.clientWidth);
+                timer = setInterval(function() {
+
+                    if(notPressing)
+                    {
+                        clearInterval(timer);
+                        notPressing = false;
+                    }
+                    if(parseInt(x) <=  document.scrollingElement.clientWidth/2)
+                    {
+                    leftpx -= 5;
+
+                    }
+                    else
+                    {
+                        leftpx += 5;
+                    }
+                        document.getElementById("image").style.left = leftpx + "px";
+                        if(number == 0 || number == 1 || number == 2)
+                        {
+                            if(parseInt(x) <=  document.scrollingElement.clientWidth/2)
+                            {
+                                document.getElementById("image").src= 'anim/iskaleft.png'; 
+
+                            }
+                            else
+                            {
+                                document.getElementById("image").src= 'anim/iskaright.png'; 
+                                
+                            }
+                            if(number == 0)
+                            {
+                            number = 1;
+
+                            }
+                            else if(number == 1)
+                            {
+                                number = 2;
+                            }
+                            else{
+                                number = 3;
+                            }
+                        }
+                        else if(number == 3 || number == 4 || number == 5)
+                        {
+                            if(parseInt(x) <=  document.scrollingElement.clientWidth/2)
+                            {
+                                document.getElementById("image").src= 'anim/iskaleftrun.png'; 
+
+                            }
+                            else
+                            {
+                                document.getElementById("image").src= 'anim/iskarightrun.png'; 
+                                
+                            }
+                            
+                             if(number == 3)
+                                {
+                                number = 4;
+
+                                }
+                                else if (number == 4)
+                                {
+                                    number = 5;
+                                }
+                                else
+                                {
+                                    number = 0;
+                                }
+                        }
+                }, 20);
+                
+                        
+        
+        });
+
+
+        var number = 0;
+        var number2 = 0;
+        var leftpx = 0;
+        var toppx = 650;
+        var jumping = false;
+        var jumpState = false;
+        var fallingState = false;
+        var timer = setInterval(function() {
+
+            if(jumpState)
+            {
+                document.getElementById("image").src= 'anim/iskarightmouth.png';
+                var wto;
+                wto = setInterval(function() {
+
+                    
+                    
+                    toppx -= 5;
+                    document.getElementById("image").style.top = toppx + "px";
+                    if(toppx == 350)
+                    {
+                        clearInterval(wto);
+                        fallingState = true;
+                    }
+                }, 10);
+                jumpState = false;
+            }
+
+            if(fallingState)
+            {
+                
+                        var wto2;
+                        wto2 = setInterval(function() {
+                        toppx += 10;
+                        document.getElementById("image").style.top = toppx + "px";
+                        if(toppx == 650)
+                        {
+                            clearInterval(wto2);
+                            jumping = false;
+                            document.getElementById("image").src= 'anim/iskarightrun.png';
+                        }
+                        }, 10);
+                        fallingState = false;
+                
+            }
+
+
+            }, 10);
+    var charfield = document.getElementById("char");
+charfield.onkeypress = function(e) {
+    e = e || window.event;
+    var charCode = (typeof e.which == "number") ? e.which : e.keyCode;
+   if(String.fromCharCode(charCode) == "d")
+   {
+   
+    leftpx += 10;
+    // alert(number);
+                        document.getElementById("image").style.left = leftpx + "px";
+                        if(number == 0 || number == 1 || number == 2)
+                        {
+                        document.getElementById("image").src= 'anim/iskaright.png'; 
+                            if(number == 0)
+                            {
+                            number = 1;
+
+                            }
+                            else if(number == 1)
+                            {
+                                number = 2;
+                            }
+                            else{
+                                number = 3;
+                            }
+                        }
+                        else if(number == 3 || number == 4 || number == 5)
+                        {
+                          
+                            document.getElementById("image").src= 'anim/iskarightrun.png'; 
+                             if(number == 3)
+                                {
+                                number = 4;
+
+                                }
+                                else if (number == 4)
+                                {
+                                    number = 5;
+                                }
+                                else
+                                {
+                                    number = 0;
+                                }
+                        }
+   }
+   else  if(String.fromCharCode(charCode) == "a")
+   {
+    leftpx -= 10;
+    document.getElementById("image").style.left = leftpx + "px";  
+    if(number2 == 0 || number2 == 1 || number2 == 2)
+                        {
+                        document.getElementById("image").src= 'anim/iskaleft.png'; 
+                            if(number2 == 0)
+                            {
+                                number2 = 1;
+
+                            }
+                            else if(number2 == 1)
+                            {
+                                number2 = 2;
+                            }
+                            else{
+                                number2 = 3;
+                            }
+                        }
+                        else if(number2 == 3 || number2 == 4 || number2 == 5)
+                        {
+                          
+                            document.getElementById("image").src= 'anim/iskaleftrun.png'; 
+                             if(number2 == 3)
+                                {
+                                    number2 = 4;
+
+                                }
+                                else if (number2 == 4)
+                                {
+                                    number2 = 5;
+                                }
+                                else
+                                {
+                                    number2 = 0;
+                                }
+                        }
+   }
+   else if(String.fromCharCode(charCode) == "w")
+   {
+       
+       if(!jumping)
+       {
+        jumpState = true;
+        jumping = true;
+
+       }
+
+
+    // toppx -= 10;
+   }
+};
+</script>
+</body>
+</html>
